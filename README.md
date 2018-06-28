@@ -3,7 +3,7 @@
 This extends the tensorflow tutorial to [create the Mandelbrot Set](https://www.tensorflow.org/tutorials/mandelbrot) to create any fractals created with iterative functions.
 
 ### Usage
-You may change the configurations such as x, y range and the image resolution in the respective python files before running either `python3 makeJulia.py` or `python3 makeMandelbrot.py`.
+See [this gist](https://gist.github.com/ishaansaxena/0edd14c73aa7a5e8c6609af7d5f509a1) for information on usage and results.
 
 ### Requirements
 * Tensorflow
