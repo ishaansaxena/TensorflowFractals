@@ -27,6 +27,7 @@ def JuliaIterativeFunction(Z):
     f_ = f * f + c
     not_diverged = tf.abs(f_) < 2
 
+    # TODO: Improve incremental function complexity
     step = tf.group(
         f.assign(f_),
         ns.assign_add(tf.cast(not_diverged, "float32"))
