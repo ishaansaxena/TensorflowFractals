@@ -9,6 +9,7 @@ import sys
 import numpy as np
 import tensorflow as tf
 
+# import colors
 from fractal import RunIterator, DisplayFractal
 
 C = -0.4 + 0.6j
@@ -49,7 +50,7 @@ if __name__ == '__main__':
         pass
 
     # Iteration Steps
-    steps = 200
+    steps = 64
 
     # Range and resolution for grid
     yl, yh = -2, 2
@@ -64,6 +65,7 @@ if __name__ == '__main__':
     Z = X + Y * 1j
 
     # Get result of iterator and form it into an image
+    # colors.SetColorProfile(colors.PURPLE)
     ns = RunIterator(JuliaIterativeFunction, Z, steps)
     im = DisplayFractal(ns.eval())
 

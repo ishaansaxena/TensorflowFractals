@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 # Forked from:
 # https://github.com/tobigithub/tensorflow-deep-learning/blob/master/examples/mandelbrot-tensorflow.py
 
@@ -9,14 +7,12 @@ import numpy as np
 from time import time
 from PIL import Image
 
+import colors
+
 def DisplayFractal(a):
     a_cyclic = ((2 * math.pi / 20) * a).reshape(list(a.shape) + [1])
     # Apply colors
-    img = np.concatenate([
-        80 - 50 * np.cos(a_cyclic),
-        0 + 1 * np.sin(a_cyclic),
-        155 - 80 * np.cos(a_cyclic)
-    ], 2)
+    img = np.concatenate(colors.COLOR_PROFILE(a_cyclic), 2)
     img[a == a.max()] = 0
     a = img
     a = np.uint8(np.clip(a, 0, 255))
