@@ -4,15 +4,18 @@
 # https://github.com/tobigithub/tensorflow-deep-learning/blob/master/examples/mandelbrot-tensorflow.py
 
 import os
+import sys
 
 import numpy as np
 import tensorflow as tf
 
 from fractal import RunIterator, DisplayFractal
 
+C = -0.4 + 0.6j
+
 def JuliaIterativeFunction(Z):
     # Set c, z, f for grid Z
-    c = tf.constant(-0.4 + 0.6j)
+    c = tf.constant(C)
     z = tf.constant(Z.astype(np.complex128))
     f = tf.Variable(z)
     ns = tf.Variable(tf.zeros_like(z, tf.float32))
@@ -25,8 +28,9 @@ def JuliaIterativeFunction(Z):
     not_diverged = tf.abs(f_) < 2
 
     step = tf.group(
-        f.assign(f_),
-        ns.assign_add(tf.cast(not_diverged, "float32"))
+        if (not_diverged):
+            f.assign(f_),
+            ns.assign_add(tf.cast(not_diverged, "float32"))
     )
 
     # Return TF Group and NS
@@ -37,13 +41,20 @@ if __name__ == '__main__':
     # Disable AVX/FMA warning
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
+    # Set Constant value if present
+    try:
+        increment = complex(sys.argv[1])
+        C = increment
+    except:
+        pass
+
     # Iteration Steps
     steps = 200
 
     # Range and resolution for grid
     yl, yh = -2, 2
     xl, xh = -2, 2
-    res = 0.001
+    res = 0.005
 
     # Create session
     session = tf.InteractiveSession()
