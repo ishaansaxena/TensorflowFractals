@@ -28,9 +28,8 @@ def JuliaIterativeFunction(Z):
     not_diverged = tf.abs(f_) < 2
 
     step = tf.group(
-        if (not_diverged):
-            f.assign(f_),
-            ns.assign_add(tf.cast(not_diverged, "float32"))
+        f.assign(f_),
+        ns.assign_add(tf.cast(not_diverged, "float32"))
     )
 
     # Return TF Group and NS
