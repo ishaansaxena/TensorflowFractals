@@ -9,10 +9,17 @@ import sys
 import numpy as np
 import tensorflow as tf
 
+import cmath
+
 # import colors
 from fractal import RunIterator, DisplayFractal
 
 C = -0.4 + 0.6j
+
+def setIncrement(R, THETA):
+    global C
+    C = R * cmath.exp(complex(0, THETA))
+    return C
 
 def JuliaIterativeFunction(Z):
     # Set c, z, f for grid Z
