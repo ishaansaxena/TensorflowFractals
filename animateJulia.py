@@ -22,13 +22,19 @@ if __name__ == '__main__':
     # Disable AVX/FMA warning
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
+    # For animation
+    theta = 0
+    frames = 60
+    delta = 2 * cmath.pi/frames
+    r = 0.7885
+
     # Iteration Steps
     steps = 64
 
     # Range and resolution for grid
     yl, yh = -2, 2
     xl, xh = -2, 2
-    res = 0.01
+    res = 0.005
 
     # Create session
     session = tf.InteractiveSession()
@@ -41,10 +47,6 @@ if __name__ == '__main__':
     # colors.SetColorProfile(colors.PURPLE)
     start = time()
     with imageio.get_writer('julia.gif', mode='I') as w:
-        theta = 0
-        frames = 10
-        delta = 2 * cmath.pi/frames
-        r = 0.7885
         for i in range(frames):
             increment = setIncrement(r, theta)
             theta += delta
@@ -52,4 +54,5 @@ if __name__ == '__main__':
             ns = RunIterator(JuliaIterativeFunction, Z, steps)
             im = DisplayFractal(ns.eval())
             w.append_data(np.array(im))
+
     print("\nOperation finished in:", time() - start, "seconds")
